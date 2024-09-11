@@ -32,7 +32,7 @@ ciclo:
 
 	ld l,0;         Cargamos el valor 0 en el registro l
 
-multiplication:
+multiplicacion:
 
 	ld a,l;         Cargamos el contenido del registro l en el registro a
 
