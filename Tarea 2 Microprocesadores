@@ -46,7 +46,7 @@ multiplicacion:
 
 	cp h;           Comparamos el registro h
 
-	jr nz, multiplication;   Si el resultado en A no es igual al de h salta de nuevo a la multiplicación 
+	jr nz, multiplicacion;   Si el resultado en A no es igual al de h salta de nuevo a la multiplicación 
 
 	ld d,l;         Cargamos el valor del registro l en el registro d
 
