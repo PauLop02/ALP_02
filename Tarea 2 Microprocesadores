@@ -1,0 +1,100 @@
+.org 0000h;	Aqui establecemos la direccion inicial en la memoria. En esta dirección se ejecutará el programa.
+
+	ld b,36;	Cargamos el numero entero "36" en el registro B. Este puede ser un numero de 0 a 100.	
+
+	ld c,0;		Cargamos el valor 0 en el registro C.	
+
+	ld a,b;		Cargamos el contenido del registro B en el registro A (ahora el registro B tiene cargado el número 36)
+
+	cp 0;		Comparamos el contenido de A con 0.
+
+	jr Z, jump_one;	Si el resultado de la comparación anterior fue cero (si A es igual a 0), saltamos a jump_one
+
+	cp 1;		Compara el contenido de A con 1
+		
+	jr Z, jump_one;	Si el valor es igual a 1, saltamos nuevamente a jump_one
+
+	ld d,1;		Cargamos el valor 1 en el registro D, que se va a utilizar para las comparaciones
+
+	ld e,1;		Cargamos el valor 1 en el registro E, que actuará como multiplicador o contador
+
+ciclo:
+
+	ld a,b;		Cargamos el valor de B en A 
+
+	cp d;           Comparamos el registro d
+
+	jr c, jump_one_1; Si el resultado de la comparación anterior es 0, saltamos a jump_one
+
+	inc e;          Incrementa el valor en el registro c
+
+	ld h,0;         Cargamos el valor 0 en el registro h
+
+	ld l,0;         Cargamos el valor 0 en el registro l
+
+multiplication:
+
+	ld a,l;         Cargamos el contenido del registro l en el registro a
+
+	add a,e;        Añadimos el contenido del registro e en el registro a
+
+	ld l,a;         Cargamos el valor del registro a en el registro l
+
+	inc h;          Incrementa el valor en el registro h
+
+	ld a,e;         Cargamos el valor del registro e en el registro a
+
+	cp h;           Comparamos el registro h
+
+	jr nz, multiplication;   Si el resultado en A no es igual al de h salta de nuevo a la multiplicación 
+
+	ld d,l;         Cargamos el valor del registro l en el registro d
+
+	jr ciclo;       Salta al inicio del bucle
+
+jump_one:
+
+	ld c,a;         Cargamos el contenido del registro a en el registro c
+
+	jr convertir;   Saltamos a la etiqueta convertir
+
+jump_one_1:
+
+	dec e;          Disminuimos en valor en el registro e
+
+	ld c,e;         Cargamos el contenido del registro e en el registro c
+
+	jr convertir;   Saltamos a la etiqueta de convertir
+
+
+convertir:
+
+	ld a,b;         Cargamos el contenido del registro b en el registro a
+
+	ld l,0;         Cargamos el valor 0 en el registro l
+loop:
+	cp 10;          Comparamos el valor acumulado en A con 10
+
+	jr c, done;     Si el valor es menor que 0 saltamos a la etiqueta done
+
+	sub 10;         Restamos 10 del acumulador A
+
+	inc l;          Incrementamos el valor del registro l
+
+	jr loop;        Saltamos a la etiqueta loop
+done:
+	sla l;          Rotamos el valor de l a la izquierda (multiplicar por 2, 4 veces)
+
+	sla l;          
+
+	sla l;          
+
+	sla l;          
+
+	or l;           Hacemos una operación lógica OR entre el acumulador A y el valor del registro l
+
+	ld B,A;         Cargamos el registro B en el registro A
+
+	halt;           Se detiene la ejecución del programa
+
+	.end;           El final del código fuente
